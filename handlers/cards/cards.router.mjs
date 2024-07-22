@@ -2,7 +2,7 @@ import { app } from "../../app.mjs";
 
 // GET
 app.get("/cards", (req, res) => {
-  res.send('');
+  res.send(req.path);
 });
 
 app.get("/cards/my-cards", (req, res) => {
