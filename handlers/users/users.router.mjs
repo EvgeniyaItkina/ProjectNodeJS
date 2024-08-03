@@ -1,5 +1,5 @@
 import { app } from "../../app.mjs";
-import { guardAdmin, guardUser } from "./guard.mjs";
+import { guardAdmin, guardUser } from "../../middleware/guard.mjs";
 import { User } from "./user.model.mjs";
 import bcrypt from "bcryptjs";
 import { UserJoiRegister } from "./users.joi.mjs";

@@ -19,9 +19,18 @@ const schemaCards = new Schema({
   subtitle: { type: String, required: true },
   description: { type: String, required: true },
   phone: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
+  email: { type: String, required: true },
   image: imageSchema,
   address: addressSchema,
+  likes: {
+    type: [Schema.Types.ObjectId],
+    default: []
+  },
+  user_id: {
+    type: Schema.Types.ObjectId,
+    required: true, // Указание на обязательность этого поля
+    ref: "User", // Ссылка на модель User для связи с пользователем
+  }
 }, {
   timestamps: true, // Automatically adds createdAt and updatedAt fields
 });
