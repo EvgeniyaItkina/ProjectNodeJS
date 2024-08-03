@@ -8,17 +8,30 @@ import path from 'path';
 import { createStream } from 'rotating-file-stream';
 import { fileURLToPath } from 'url';
 import chalk from 'chalk';
+import session from 'express-session';
 
 export const app = express();
 
 async function main() {
-  await mongoose.connect('mongodb://localhost:27017/MyProject');
-  console.log('mongodb connected');
+  try {
+    await mongoose.connect('mongodb://localhost:27017/MyProject');
+    console.log(chalk.green('mongodb connected'));
+  } catch (err) {
+    console.log(chalk.red('Failed to connect to MongoDB:', err));
+  }
 }
-main().catch(err => console.log(err));
-
+main();
 
 app.use(express.json());
+
+//crate session store
+app.use(session({
+  secret: 'my-secret-key',
+  name: 'MyProject-session',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // `secure: true` for HTTPS
+}));
 
 // get current url of this file
 const __filename = fileURLToPath(import.meta.url);
@@ -65,7 +78,7 @@ app.use(cors({
   origin: true,
   methods: 'GET,PUT,POST,PATCH,DELETE,OPTIONS',
   credentials: true,
-  allowedHeaders: 'Content-Type, Accept',
+  allowedHeaders: 'Content-Type, Accept, Authorization',
 }));
 
 app.listen(2024, () => {
@@ -73,4 +86,5 @@ app.listen(2024, () => {
 });
 
 import("./handlers/users/users.router.mjs");
+import("./handlers/users/auth.router.mjs");
 import("./handlers/cards/cards.router.mjs");
