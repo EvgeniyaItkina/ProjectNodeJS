@@ -1,11 +1,11 @@
 import { app } from "../../app.mjs";
-import { guardAdmin, guardUser } from "../../middleware/guard.mjs";
+import { guard, adminGuard, businessGuard } from "../../middleware/guard.mjs";
 import { User } from "./user.model.mjs";
 import bcrypt from "bcryptjs";
 import { UserJoiRegister } from "./users.joi.mjs";
 
 // GET all users
-app.get("/users", guardAdmin, async (req, res) => {
+app.get("/users", guard, adminGuard, async (req, res) => {
   try {
     const users = await User.find();
     res.send(users);
@@ -15,7 +15,7 @@ app.get("/users", guardAdmin, async (req, res) => {
 });
 
 // GET a user by ID
-app.get("/users/:id", guardAdmin, async (req, res) => {
+app.get("/users/:id", guard, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
@@ -90,7 +90,7 @@ app.post("/users", async (req, res) => {
 });
 
 // PUT update a user by ID
-app.put("/users/:id", guardUser, async (req, res) => {
+app.put("/users/:id", guard, async (req, res) => {
   try {
     const {
       firstName,
@@ -144,9 +144,14 @@ app.put("/users/:id", guardUser, async (req, res) => {
 });
 
 // PATCH update only the business status of a user by ID
-app.patch("/users/:id/business-status", guardAdmin, async (req, res) => {
+app.patch("/users/:id/business-status", guard, async (req, res) => {
   try {
+    const userId = req.user._id;
     const { isBusiness } = req.body;
+
+    if (userId !== req.params.id && !req.user.isAdmin) {
+      return res.status(403).send({ message: "Unauthorized to update this user" });
+    }
 
     if (typeof isBusiness !== 'boolean') {
       return res.status(400).send({ message: "Invalid value for isBusiness" });
@@ -170,8 +175,14 @@ app.patch("/users/:id/business-status", guardAdmin, async (req, res) => {
   }
 });
 // DELETE a user by ID
-app.delete("/users/:id", guardAdmin, async (req, res) => {
+app.delete("/users/:id", guard, async (req, res) => {
   try {
+    const userId = req.user._id; // Получаем ID пользователя из токена
+
+    if (userId !== req.params.id && !req.user.isAdmin) {
+      return res.status(403).send({ message: "Unauthorized to delete this user" });
+    }
+
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user) {
       return res.status(404).send({ message: "User not found" });
