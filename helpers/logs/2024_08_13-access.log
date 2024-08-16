@@ -1,0 +1,115 @@
+Entry Time: 12/08/2024 22:01:53
+Method: GET
+URL: /users/login
+Response Time: 104870.761 ms
+Status: 401
+Entry Time: 12/08/2024 22:10:59
+Method: POST
+URL: /users/login
+Response Time: 10.966 ms
+Status: 404
+Entry Time: 12/08/2024 22:13:58
+Method: POST
+URL: /users/login
+Response Time: 14.697 ms
+Status: 400
+Entry Time: 12/08/2024 22:17:12
+Method: POST
+URL: /users/login
+Response Time: 271.698 ms
+Status: 500
+Entry Time: 12/08/2024 22:21:41
+Method: POST
+URL: /users/login
+Response Time: 11482.519 ms
+Status: 200
+Entry Time: 12/08/2024 22:23:18
+Method: GET
+URL: /cards/my-cards
+Response Time: 12581.061 ms
+Status: 200
+Entry Time: 12/08/2024 22:25:03
+Method: POST
+URL: /cards
+Response Time: undefined ms
+Status: undefined
+Entry Time: 12/08/2024 22:45:23
+Method: PUT
+URL: /users/669d2685714e1a3b89cac281
+Response Time: 6341.322 ms
+Status: 404
+Entry Time: 12/08/2024 22:46:52
+Method: PUT
+URL: /users/66b736c6488a03672fbe6834
+Response Time: 4933.969 ms
+Status: 200
+Entry Time: 12/08/2024 22:47:20
+Method: GET
+URL: /cards
+Response Time: 19.205 ms
+Status: 200
+Entry Time: 12/08/2024 22:49:03
+Method: POST
+URL: /cards
+Response Time: undefined ms
+Status: undefined
+Entry Time: 12/08/2024 22:51:33
+Method: POST
+URL: /cards
+Response Time: undefined ms
+Status: undefined
+Entry Time: 12/08/2024 23:25:21
+Method: POST
+URL: /login
+Response Time: 3.117 ms
+Status: 404
+Entry Time: 12/08/2024 23:25:57
+Method: POST
+URL: /login
+Response Time: 0.587 ms
+Status: 404
+Entry Time: 12/08/2024 23:26:22
+Method: POST
+URL: /login
+Response Time: 2.953 ms
+Status: 404
+Entry Time: 12/08/2024 23:27:16
+Method: POST
+URL: /users/login
+Response Time: 33.840 ms
+Status: 403
+Entry Time: 12/08/2024 23:27:52
+Method: POST
+URL: /users/login
+Response Time: 5.390 ms
+Status: 403
+Entry Time: 12/08/2024 23:29:15
+Method: POST
+URL: /users/login
+Response Time: 8008.876 ms
+Status: 403
+Entry Time: 12/08/2024 23:30:49
+Method: POST
+URL: /users/login
+Response Time: 79139.639 ms
+Status: 403
+Entry Time: 12/08/2024 23:31:01
+Method: POST
+URL: /users/login
+Response Time: 12204.831 ms
+Status: 400
+Entry Time: 12/08/2024 23:32:44
+Method: POST
+URL: /users/login
+Response Time: 9547.634 ms
+Status: 400
+Entry Time: 12/08/2024 23:33:14
+Method: POST
+URL: /users/login
+Response Time: 30372.640 ms
+Status: 500
+Entry Time: 12/08/2024 23:45:36
+Method: POST
+URL: /users/login
+Response Time: 8425.591 ms
+Status: 200

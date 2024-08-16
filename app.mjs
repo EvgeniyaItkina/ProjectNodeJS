@@ -1,12 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import moment from 'moment';
-import morgan from 'morgan';
-import fs from 'fs';
-import path from 'path';
-import { createStream } from 'rotating-file-stream';
-import { fileURLToPath } from 'url';
 import chalk from 'chalk';
 import dotenv from 'dotenv';
 import { setupLogging } from './helpers/morgan_chalk_logger.mjs';
@@ -44,6 +38,9 @@ app.listen(process.env.PORT, () => {
   console.log('listen on port 2024');
 });
 
+/* app.post('/login', (req, res) => {
+  return "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}) */
 import("./handlers/users/users.router.mjs");
 import("./handlers/users/auth.router.mjs");
 import("./handlers/cards/cards.router.mjs");

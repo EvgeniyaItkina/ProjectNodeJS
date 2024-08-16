@@ -33,4 +33,8 @@ const schema = new Schema({
   timestamps: true,
 });
 
+export const sessionSchema = new Schema({
+  userID: { type: mongoose.ObjectId }
+})
 export const User = mongoose.model("users", schema);
+export const session = mongoose.model("session", sessionSchema);

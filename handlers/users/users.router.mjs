@@ -101,47 +101,48 @@ app.put("/users/:id", guard, async (req, res) => {
       image,
       address,
       isAdmin,
-      isBusiness } = req.body;
+      isBusiness
+    } = req.body;
 
-    const user = await User.findByIdAndUpdate(
-      req.params.id,
-      {
-        name: {
-          firstName,
-          middleName,
-          lastName,
-        },
-        phone,
-        email,
-        image: {
-          url: image.url,
-          alt: image.alt,
-        },
-        address: {
-          state: address.state,
-          country: address.country,
-          city: address.city,
-          street: address.street,
-          houseNumber: address.houseNumber,
-          zip: address.zip,
-        },
-        isAdmin,
-        isBusiness,
-      },
-      {
-        new: true, // Returns the updated document instead of the old one
-        runValidators: true // Forces the validation of the updated fields
-      }
-    );
-
+    // Найдите пользователя по ID
+    const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).send({ message: "User not found" });
     }
-    res.send(user);
+
+    // Обновите только те поля, которые были переданы в запросе
+    if (firstName !== undefined) user.name.firstName = firstName;
+    if (middleName !== undefined) user.name.middleName = middleName;
+    if (lastName !== undefined) user.name.lastName = lastName;
+    if (phone !== undefined) user.phone = phone;
+    if (email !== undefined) user.email = email;
+
+    if (image) {
+      if (image.url !== undefined) user.image.url = image.url;
+      if (image.alt !== undefined) user.image.alt = image.alt;
+    }
+
+    if (address) {
+      if (address.state !== undefined) user.address.state = address.state;
+      if (address.country !== undefined) user.address.country = address.country;
+      if (address.city !== undefined) user.address.city = address.city;
+      if (address.street !== undefined) user.address.street = address.street;
+      if (address.houseNumber !== undefined) user.address.houseNumber = address.houseNumber;
+      if (address.zip !== undefined) user.address.zip = address.zip;
+    }
+
+    if (isAdmin !== undefined) user.isAdmin = isAdmin;
+    if (isBusiness !== undefined) user.isBusiness = isBusiness;
+
+    // Сохраните обновленного пользователя
+    const updatedUser = await user.save();
+
+    res.send(updatedUser);
   } catch (error) {
     res.status(500).send({ message: "Error updating user", error });
   }
 });
+
 
 // PATCH update only the business status of a user by ID
 app.patch("/users/:id/business-status", guard, async (req, res) => {

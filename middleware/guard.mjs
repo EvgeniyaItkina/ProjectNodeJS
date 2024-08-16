@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { session } from '../handlers/users/user.model.mjs';
 
 // Middleware to verify the token and store user data in req.user
 export const guard = (req, res, next) => {
@@ -10,23 +11,49 @@ export const guard = (req, res, next) => {
   }
 
   // Verify the token using the secret key from the environment variables
-  jwt.verify(authHeader, process.env.JWT_SECRET, (err, data) => {
+  jwt.verify(authHeader, process.env.JWT_SECRET, async (err, data) => {
     if (err) {
       return res.status(403).send({ message: 'Invalid token' });
     }
 
+    if (data._id == undefined && data.isBusiness == undefined && data.isAdmin == undefined) {
+      res.status(403).send({ message: 'invalid token' });
+    }
+
+    // Проверка на наличие userID в коллекции session
+    const sessionExists = await session.exists({ userID: mongoose.Types.ObjectId(data._id) });
+
+    if (!sessionExists) {
+      return res.status(403).send({ message: 'Session does not exist. Unauthorized.' });
+    }
     // Store the decoded user data in req.user for further use
-    req.user = data;
+
+    req.user = data._id;
     next();
   });
 };
 
 // Middleware to check if the user is a business user or an admin
 export const businessGuard = (req, res, next) => {
-  // Check if the user is either a business user or an admin
-  if (req.user?.isBusiness || req.user?.isAdmin) {
-    next();
-    res.status(401).send('User is not authorized'); // User is not authorized
+  try {
+    const authHeader = req.headers.authorization;
+
+    jwt.verify(authHeader, process.env.JWT_SECRET, (err, data) => {
+      if (err) {
+        return res.status(403).send({ message: 'Invalid token' });
+      }
+
+      if (data._id == undefined && data.isBusiness == undefined && data.isAdmin == undefined) {
+        res.status(403).send({ message: 'invalid token' });
+      }
+      // Check if the user is either a business user or an admin
+      if (data.isBusiness || data.isAdmin) {
+        next();
+      }
+    });
+
+  } catch (err) {
+    res.status(403).send({ "message": err.message });
   }
 };
 

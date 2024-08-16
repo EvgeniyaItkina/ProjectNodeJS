@@ -1,0 +1,25 @@
+Entry Time: 23/07/2024 10:49:45
+Method: GET
+URL: /users
+Response Time: 17.186 ms
+Status: 304
+Entry Time: 10/08/2024 12:13:06
+Method: GET
+URL: /users
+Response Time: 29.713 ms
+Status: 304
+Entry Time: 10/08/2024 12:14:38
+Method: GET
+URL: /users
+Response Time: 37.567 ms
+Status: 304
+Entry Time: 10/08/2024 12:37:24
+Method: GET
+URL: /users
+Response Time: 40.433 ms
+Status: 304
+Entry Time: 10/08/2024 12:41:08
+Method: GET
+URL: /users
+Response Time: 15.067 ms
+Status: 200

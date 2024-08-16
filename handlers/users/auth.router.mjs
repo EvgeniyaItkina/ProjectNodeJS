@@ -4,9 +4,9 @@ import { app } from "../../app.mjs";
 import { User } from "./user.model.mjs";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
+import { session } from "./user.model.mjs";
 
-
-app.post("/users/login", async (req, res) => {
+app.post('/users/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     const validate = UserJoiLogin.validate({ email, password });
@@ -30,24 +30,27 @@ app.post("/users/login", async (req, res) => {
         _id: user._id,
         firstName: user.name.firstName,
         lastName: user.name.lastName,
+        isBusiness: user.isBusiness,
+        isAdmin: user.isAdmin
       },
       JWT_SECRET,
       { expiresIn: '1h' });
 
-    req.session.user = user; // Сохранение пользователя в сессии
-    res.send({ user, token });
+    session.create({ userID: user._id });
+    res.send({ token });
   } catch (error) {
     res.status(500).send({ message: "Error logging in", error });
   }
 })
 
-app.get("/logout", (req, res) => {
+app.get('/logout', (req, res) => {
   try {
     req.session.destroy(err => {
       if (err) {
         return res.status(500).send({ message: "Error logging out", error: err });
       }
       res.clearCookie('MyProject-session'); // Очистка куки сессии
+      res.clearCookie('token');
       res.send({ message: "Logged out successfully" });
     });
   } catch (error) {
