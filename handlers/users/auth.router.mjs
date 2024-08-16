@@ -1,4 +1,4 @@
-import { JWT_SECRET } from "../../config.mjs";
+
 import { UserJoiLogin } from "../users/users.joi.mjs";
 import { app } from "../../app.mjs";
 import { User } from "./user.model.mjs";
@@ -33,7 +33,7 @@ app.post('/users/login', async (req, res) => {
         isBusiness: user.isBusiness,
         isAdmin: user.isAdmin
       },
-      JWT_SECRET,
+      process.env.JWT_SECRET,
       { expiresIn: '1h' });
 
     await Session.create({ userID: user._id });

@@ -46,4 +46,3 @@ const sessionSchema = new Schema({
 // Create a Mongoose model for the session schema
 export const Session = mongoose.model("Session", sessionSchema);
 export const User = mongoose.model("users", schema);
-/* export const session = mongoose.model("session", sessionSchema); */
