@@ -33,8 +33,17 @@ const schema = new Schema({
   timestamps: true,
 });
 
-export const sessionSchema = new Schema({
-  userID: { type: mongoose.ObjectId }
-})
+// Define the schema for storing session information
+const sessionSchema = new Schema({
+  // The userID field stores a reference to the User model, linking each session to a specific user
+  userID: { type: mongoose.ObjectId, ref: 'User' }
+},
+  {
+    // Automatically add createdAt and updatedAt fields to track when the session was created and last updated
+    timestamps: true
+  });
+
+// Create a Mongoose model for the session schema
+export const Session = mongoose.model("Session", sessionSchema);
 export const User = mongoose.model("users", schema);
-export const session = mongoose.model("session", sessionSchema);
+/* export const session = mongoose.model("session", sessionSchema); */

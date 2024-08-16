@@ -4,7 +4,7 @@ import { app } from "../../app.mjs";
 import { User } from "./user.model.mjs";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
-import { session } from "./user.model.mjs";
+import { Session } from "./user.model.mjs";
 
 app.post('/users/login', async (req, res) => {
   try {
@@ -36,25 +36,20 @@ app.post('/users/login', async (req, res) => {
       JWT_SECRET,
       { expiresIn: '1h' });
 
-    session.create({ userID: user._id });
+    await Session.create({ userID: user._id });
     res.send({ token });
   } catch (error) {
     res.status(500).send({ message: "Error logging in", error });
   }
 })
 
-app.get('/logout', (req, res) => {
+app.get('/logout', async (req, res) => {
   try {
-    req.session.destroy(err => {
-      if (err) {
-        return res.status(500).send({ message: "Error logging out", error: err });
-      }
-      res.clearCookie('MyProject-session'); // Очистка куки сессии
-      res.clearCookie('token');
-      res.send({ message: "Logged out successfully" });
-    });
+    await Session.findOneAndDelete({ userID: req.user._id });
+
+    res.clearCookie('token');
+    res.send({ message: "Logged out successfully" });
   } catch (error) {
     res.status(500).send({ message: "Error logging out", error });
-  } delete req.session.user;
-  res.end();
+  }
 });

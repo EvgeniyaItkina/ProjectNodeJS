@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { session } from '../handlers/users/user.model.mjs';
+import { Session } from '../handlers/users/user.model.mjs';
 
 // Middleware to verify the token and store user data in req.user
 export const guard = (req, res, next) => {
@@ -21,7 +21,7 @@ export const guard = (req, res, next) => {
     }
 
     // Проверка на наличие userID в коллекции session
-    const sessionExists = await session.exists({ userID: mongoose.Types.ObjectId(data._id) });
+    const sessionExists = await Session.findOne({ userID: data._id });
 
     if (!sessionExists) {
       return res.status(403).send({ message: 'Session does not exist. Unauthorized.' });
