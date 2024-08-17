@@ -37,6 +37,9 @@ app.post('/users/login', async (req, res) => {
       { expiresIn: '1h' });
 
     await Session.create({ userID: user._id });
+    await Session.deleteMany({ userID: user._id });
+    const newSession = new Session({ userID: user._id });
+    await newSession.save();
     res.send({ token });
   } catch (error) {
     res.status(500).send({ message: "Error logging in", error });
@@ -45,7 +48,16 @@ app.post('/users/login', async (req, res) => {
 
 app.get('/logout', async (req, res) => {
   try {
-    await Session.findOneAndDelete({ userID: req.user._id });
+    console.log("Logging out user with ID:", req.user ? req.user._id : 'undefined');
+    if (!req.user || !req.user._id) {
+      return res.status(401).send({ message: "User not authenticated" });
+    }
+
+    const sessionDeleted = await Session.findOneAndDelete({ userID: req.user._id });
+
+    if (!sessionDeleted) {
+      return res.status(404).send({ message: "Session not found" });
+    }
 
     res.clearCookie('token');
     res.send({ message: "Logged out successfully" });
@@ -53,3 +65,4 @@ app.get('/logout', async (req, res) => {
     res.status(500).send({ message: "Error logging out", error });
   }
 });
+

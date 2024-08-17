@@ -35,34 +35,40 @@ export const guard = (req, res, next) => {
 
 // Middleware to check if the user is a business user or an admin
 export const businessGuard = (req, res, next) => {
-  try {
-    const authHeader = req.headers.authorization;
-
-    jwt.verify(authHeader, process.env.JWT_SECRET, (err, data) => {
-      if (err) {
-        return res.status(403).send({ message: 'Invalid token' });
-      }
-
-      if (data._id == undefined && data.isBusiness == undefined && data.isAdmin == undefined) {
-        res.status(403).send({ message: 'invalid token' });
-      }
-      // Check if the user is either a business user or an admin
-      if (data.isBusiness || data.isAdmin) {
-        next();
-      }
-    });
-
-  } catch (err) {
-    res.status(403).send({ "message": err.message });
+  if (req.user && (req.user.isBusiness || req.user.isAdmin)) {
+    next();
+  } else {
+    res.status(401).send({ message: 'User is not authorized as business or admin' });
   }
+
+  /*  try {
+     const authHeader = req.headers.authorization;
+ 
+     jwt.verify(authHeader, process.env.JWT_SECRET, (err, data) => {
+       if (err) {
+         return res.status(403).send({ message: 'Invalid token' });
+       }
+ 
+       if (data._id == undefined && data.isBusiness == undefined && data.isAdmin == undefined) {
+         res.status(403).send({ message: 'invalid token' });
+       }
+       // Check if the user is either a business user or an admin
+       if (data.isBusiness || data.isAdmin) {
+         next();
+       }
+     });
+ 
+   } catch (err) {
+     res.status(403).send({ "message": err.message });
+   } */
 };
 
 export const adminGuard = (req, res, next) => {
-  // Check if the user is an admin
-  if (req.user?.isAdmin) {
-    next(); // User is an admin, proceed to the next middleware or route handler
+
+  if (req.user && req.user?.isAdmin) {
+    next();
   } else {
-    res.status(401).send('User is not authorized'); // User is not an admin
+    res.status(401).send({ message: 'User is not authorized as admin' });
   }
 };
 

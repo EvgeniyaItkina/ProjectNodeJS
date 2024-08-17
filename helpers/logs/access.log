@@ -1,0 +1,40 @@
+Entry Time: 17/08/2024 00:05:19
+Method: POST
+URL: /users/login
+Response Time: 231.891 ms
+Status: 200
+Entry Time: 17/08/2024 00:06:47
+Method: GET
+URL: /logout
+Response Time: 3.108 ms
+Status: 500
+Entry Time: 17/08/2024 00:07:04
+Method: POST
+URL: /users/login
+Response Time: 159.284 ms
+Status: 200
+Entry Time: 17/08/2024 00:07:22
+Method: GET
+URL: /logout
+Response Time: 2.027 ms
+Status: 500
+Entry Time: 17/08/2024 00:19:38
+Method: POST
+URL: /users/login
+Response Time: 330.270 ms
+Status: 200
+Entry Time: 17/08/2024 00:27:56
+Method: POST
+URL: /users/login
+Response Time: 219.560 ms
+Status: 200
+Entry Time: 17/08/2024 00:29:38
+Method: GET
+URL: /logout
+Response Time: 51820.754 ms
+Status: 401
+Entry Time: 17/08/2024 00:30:20
+Method: POST
+URL: /users/login
+Response Time: undefined ms
+Status: undefined
