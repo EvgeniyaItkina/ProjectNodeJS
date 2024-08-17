@@ -21,6 +21,12 @@ app.get("/users/:id", guard, async (req, res) => {
     if (!user) {
       return res.status(404).send({ message: "User not found" });
     }
+
+    // Проверяем, что запрашивающий пользователь либо сам запрашивает свои данные, либо является администратором
+    if (req.user._id !== req.params.id && !req.user.isAdmin) {
+      return res.status(403).send({ message: "Unauthorized access" });
+    }
+
     res.send(user);
   } catch (error) {
     res.status(500).send({ message: "Error retrieving user", error });
@@ -31,9 +37,7 @@ app.get("/users/:id", guard, async (req, res) => {
 app.post("/users", async (req, res) => {
   try {
     const {
-      firstName,
-      middleName,
-      lastName,
+      name: { firstName, middleName, lastName } = {},
       phone,
       email,
       password,
@@ -47,7 +51,8 @@ app.post("/users", async (req, res) => {
     });
 
     if (error) {
-      return res.status(400).send(error.details[0].message);
+      const details = error.details.map(err => err.message).join(", ");
+      return res.status(400).send(`Validation error: ${details}`);
     }
 
     // Check if user with this email already exists
@@ -65,18 +70,18 @@ app.post("/users", async (req, res) => {
       },
       phone,
       email,
-      password: hashedPassword, // Hashing the password before saving
-      image: {
-        url: image.url,
-        alt: image.alt,
-      },
+      password: hashedPassword,
+      image: image ? {
+        url: image?.url,
+        alt: image?.alt
+      } : undefined,
       address: {
-        state: address.state,
-        country: address.country,
-        city: address.city,
-        street: address.street,
-        houseNumber: address.houseNumber,
-        zip: address.zip,
+        state: address?.state,
+        country: address?.country,
+        city: address?.city,
+        street: address?.street,
+        houseNumber: address?.houseNumber,
+        zip: address?.zip,
       },
       isAdmin,
       isBusiness,
@@ -85,6 +90,7 @@ app.post("/users", async (req, res) => {
     const newUser = await user.save();
     res.status(201).send(newUser);
   } catch (error) {
+    console.error("Error creating user:", error);
     res.status(500).send({ message: "Error creating user", error });
   }
 });

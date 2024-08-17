@@ -5,6 +5,7 @@ import { User } from "./user.model.mjs";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 import { Session } from "./user.model.mjs";
+import { guard } from "../../middleware/guard.mjs";
 
 app.post('/users/login', async (req, res) => {
   try {
@@ -37,23 +38,21 @@ app.post('/users/login', async (req, res) => {
       { expiresIn: '1h' });
 
     await Session.create({ userID: user._id });
-    await Session.deleteMany({ userID: user._id });
+    /* await Session.deleteMany({ userID: user._id });
     const newSession = new Session({ userID: user._id });
-    await newSession.save();
+    await newSession.save(); */
     res.send({ token });
   } catch (error) {
     res.status(500).send({ message: "Error logging in", error });
   }
 })
 
-app.get('/logout', async (req, res) => {
+app.get('/logout', guard, async (req, res) => {
   try {
     console.log("Logging out user with ID:", req.user ? req.user._id : 'undefined');
-    if (!req.user || !req.user._id) {
-      return res.status(401).send({ message: "User not authenticated" });
-    }
 
-    const sessionDeleted = await Session.findOneAndDelete({ userID: req.user._id });
+    //почему то в res.user соделжится только ID и не надо его извлекать отдельно 
+    const sessionDeleted = await Session.findOneAndDelete({ userID: req.user });
 
     if (!sessionDeleted) {
       return res.status(404).send({ message: "Session not found" });
