@@ -23,7 +23,7 @@ app.get("/users/:id", guard, async (req, res) => {
     }
 
     // Проверяем, что запрашивающий пользователь либо сам запрашивает свои данные, либо является администратором
-    if (req.user._id !== req.params.id && !req.user.isAdmin) {
+    if (req.user !== req.params.id && !req.user.isAdmin) {
       return res.status(403).send({ message: "Unauthorized access" });
     }
 
@@ -98,10 +98,12 @@ app.post("/users", async (req, res) => {
 // PUT update a user by ID
 app.put("/users/:id", guard, async (req, res) => {
   try {
+    // Проверяем, что запрашивающий пользователь либо сам запрашивает свои данные, либо является администратором
+    if (req.user !== req.params.id && !req.user.isAdmin) {
+      return res.status(403).send({ message: "Unauthorized access" });
+    }
     const {
-      firstName,
-      middleName,
-      lastName,
+      name: { firstName, middleName, lastName } = {},
       phone,
       email,
       image,
@@ -153,7 +155,7 @@ app.put("/users/:id", guard, async (req, res) => {
 // PATCH update only the business status of a user by ID
 app.patch("/users/:id/business-status", guard, async (req, res) => {
   try {
-    const userId = req.user._id;
+    const userId = req.user;
     const { isBusiness } = req.body;
 
     if (userId !== req.params.id && !req.user.isAdmin) {
@@ -184,7 +186,7 @@ app.patch("/users/:id/business-status", guard, async (req, res) => {
 // DELETE a user by ID
 app.delete("/users/:id", guard, async (req, res) => {
   try {
-    const userId = req.user._id; // Получаем ID пользователя из токена
+    const userId = req.user; // Получаем ID пользователя из токена
 
     if (userId !== req.params.id && !req.user.isAdmin) {
       return res.status(403).send({ message: "Unauthorized to delete this user" });

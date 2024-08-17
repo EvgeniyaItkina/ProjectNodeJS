@@ -223,3 +223,53 @@ Method: POST
 URL: /users
 Response Time: 212.290 ms
 Status: 201
+Entry Time: 17/08/2024 15:53:49
+Method: PUT
+URL: /users/66b736c6488a03672fbe6834
+Response Time: 25.914 ms
+Status: 403
+Entry Time: 17/08/2024 15:54:27
+Method: POST
+URL: /users/login
+Response Time: 192.464 ms
+Status: 200
+Entry Time: 17/08/2024 15:55:50
+Method: PUT
+URL: /users/66b736c6488a03672fbe6834
+Response Time: 49667.762 ms
+Status: 403
+Entry Time: 17/08/2024 15:56:11
+Method: PUT
+URL: /users/66b736c6488a03672fbe6834
+Response Time: 11187.534 ms
+Status: 500
+Entry Time: 17/08/2024 15:57:05
+Method: PUT
+URL: /users/66b736c6488a03672fbe6834
+Response Time: 9297.674 ms
+Status: 200
+Entry Time: 17/08/2024 16:01:04
+Method: POST
+URL: /users/login
+Response Time: 230.887 ms
+Status: 200
+Entry Time: 17/08/2024 16:02:20
+Method: PATCH
+URL: /users/66c09c22aa93c5ba567a43f8/business-status
+Response Time: 11.393 ms
+Status: 403
+Entry Time: 17/08/2024 16:02:55
+Method: PATCH
+URL: /users/66c09c22aa93c5ba567a43f8/business-status
+Response Time: 22.498 ms
+Status: 400
+Entry Time: 17/08/2024 16:04:27
+Method: PATCH
+URL: /users/66c09c22aa93c5ba567a43f8/business-status
+Response Time: 35.764 ms
+Status: 200
+Entry Time: 17/08/2024 16:07:05
+Method: DELETE
+URL: /users/66c09c22aa93c5ba567a43f8
+Response Time: 7.435 ms
+Status: 403
