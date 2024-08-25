@@ -20,11 +20,38 @@ app.post('/users/login', async (req, res) => {
       return res.status(403).send("Email or password is incorrect");
     }
 
+    // check if session is already created
+    let session = await Session.findOne({ userID: user._id });
+
+    if (!session) {
+      // if no - create session
+      session = new Session({ userID: user._id });
+    } else {
+      const currentTime = Date.now();
+      const timeDifference = currentTime - session.lastFailedAttempt;
+
+      if (session.failedAttempts >= 3 && timeDifference < 24 * 60 * 60 * 1000) {
+        return res.status(403).send("Your account is locked. Try again later.");
+      }
+
+      if (timeDifference >= 24 * 60 * 60 * 1000) {
+        session.failedAttempts = 0;
+        session.lastFailedAttempt = null;
+      }
+    }
+
     //check password 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
+      session.failedAttempts += 1;
+      session.lastFailedAttempt = Date.now();
+      await session.save();
       return res.status(403).send("Email or password is incorrect");
     }
+
+    session.failedAttempts = 0;
+    session.lastFailedAttempt = null;
+    await session.save();
 
     const token = jwt.sign(
       {
@@ -37,10 +64,6 @@ app.post('/users/login', async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: '1h' });
 
-    await Session.create({ userID: user._id });
-    /* await Session.deleteMany({ userID: user._id });
-    const newSession = new Session({ userID: user._id });
-    await newSession.save(); */
     res.send({ token });
   } catch (error) {
     res.status(500).send({ message: "Error logging in", error });
