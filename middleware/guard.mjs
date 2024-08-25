@@ -28,7 +28,7 @@ export const guard = (req, res, next) => {
     }
     // Store the decoded user data in req.user for further use
 
-    req.user = data._id;
+    req.user = data;
     next();
   });
 };
@@ -40,29 +40,7 @@ export const businessGuard = (req, res, next) => {
   } else {
     res.status(401).send({ message: 'User is not authorized as business or admin' });
   }
-
-  /*  try {
-     const authHeader = req.headers.authorization;
- 
-     jwt.verify(authHeader, process.env.JWT_SECRET, (err, data) => {
-       if (err) {
-         return res.status(403).send({ message: 'Invalid token' });
-       }
- 
-       if (data._id == undefined && data.isBusiness == undefined && data.isAdmin == undefined) {
-         res.status(403).send({ message: 'invalid token' });
-       }
-       // Check if the user is either a business user or an admin
-       if (data.isBusiness || data.isAdmin) {
-         next();
-       }
-     });
- 
-   } catch (err) {
-     res.status(403).send({ "message": err.message });
-   } */
 };
-
 export const adminGuard = (req, res, next) => {
 
   if (req.user && req.user?.isAdmin) {

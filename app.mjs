@@ -12,7 +12,8 @@ export const app = express();
 
 async function main() {
   try {
-    await mongoose.connect(process.env.MONGO_DB_URL);
+    const db = process.env.NODE_ENV === 'development' ? process.env.MONGO_DB_URL : process.env.ATLAS_URL
+    await mongoose.connect(db);
     console.log(chalk.green('mongodb connected'));
   } catch (err) {
     console.log(chalk.red('Failed to connect to MongoDB:', err));
