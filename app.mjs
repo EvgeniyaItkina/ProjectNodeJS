@@ -39,22 +39,20 @@ app.listen(process.env.PORT, () => {
   console.log('listen on port 2024');
 });
 
-/* app.post('/login', (req, res) => {
-  return "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-}) */
+/* 
 import("./handlers/users/users.router.mjs");
 import("./handlers/users/auth.router.mjs");
 import("./handlers/cards/cards.router.mjs");
-await import("./initial-data/initial-data.service.mjs")
+await import("./initial-data/initial-data.service.mjs") */
 
-/* 
+
 (async () => {
-  import("./handlers/users/users.router.mjs");
-  import("./handlers/users/auth.router.mjs");
-  import("./handlers/cards/cards.router.mjs");
+  await import("./handlers/users/auth.router.mjs");
+  await import("./handlers/users/users.router.mjs");
+  await import("./handlers/cards/cards.router.mjs");
   await import("./initial-data/initial-data.service.mjs");
 
-  app.get("*", (req, res) => {
+  app.get('/*', (req, res) => {
     res.writeHead(404, { 'Content-Type': 'text/html' });
     res.write(`<meta charset="UTF-8">`);
     res.write(`
@@ -70,4 +68,4 @@ await import("./initial-data/initial-data.service.mjs")
     res.write("<h2>Page is not found<h2>");
     res.end();
   });
-})() */
+})()
