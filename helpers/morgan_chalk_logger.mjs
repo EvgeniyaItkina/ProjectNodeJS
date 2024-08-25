@@ -6,17 +6,20 @@ import { createStream } from 'rotating-file-stream';
 import moment from 'moment';
 
 // Check if the log directory exists, if not, create it
-// process.cwd() returns the current working directory of the Node.js process,
-// ensuring that the 'helpers/logs' directory is created in the root of the project
 const logDirectory = path.join(process.cwd(), 'helpers/logs');
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory, { recursive: true });
 
-// Create a rotating write stream to store log files
-const accessLogStream = createStream((time, index) => {
-  if (!time) return 'access.log';
-  return `${moment(time).format('YYYY_MM_DD')}-access.log`;
+// Create a write stream for all access logs
+const accessLogStream = createStream('access.log', {
+  interval: '1d', // Rotate daily
+  path: logDirectory
+});
+
+// Create a rotating write stream for error logs based on date
+const errorLogStream = createStream(() => {
+  return `${moment().format('YYYY_MM_DD')}-errors.log`;
 }, {
-  interval: '1d', // check log files every day
+  interval: '1d', // Rotate daily
   path: logDirectory
 });
 
@@ -43,6 +46,13 @@ const consoleFormat = (tokens, req, res) => [
 // Export the setupLogging function that applies the logging middleware to the app
 
 export const setupLogging = (app) => {
+  // Log all requests to console and access log file
   app.use(morgan(consoleFormat));
   app.use(morgan('custom', { stream: accessLogStream }));
-}
+
+  // Log errors (status >= 400) to a separate file with date
+  app.use(morgan('custom', {
+    stream: errorLogStream,
+    skip: (req, res) => res.statusCode < 400
+  }));
+};

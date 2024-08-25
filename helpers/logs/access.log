@@ -1,0 +1,30 @@
+Entry Time: 25/08/2024 20:01:11
+Method: GET
+URL: /cards
+Response Time: 33.499 ms
+Status: 304
+Entry Time: 25/08/2024 20:01:43
+Method: GET
+URL: /cards
+Response Time: 14.546 ms
+Status: 304
+Entry Time: 25/08/2024 20:01:52
+Method: GET
+URL: /users
+Response Time: 2.736 ms
+Status: 401
+Entry Time: 25/08/2024 20:02:16
+Method: GET
+URL: /users
+Response Time: 9.970 ms
+Status: 401
+Entry Time: 25/08/2024 20:02:30
+Method: GET
+URL: /cards
+Response Time: 35.866 ms
+Status: 304
+Entry Time: 25/08/2024 20:02:46
+Method: GET
+URL: /end
+Response Time: 2.426 ms
+Status: 404
