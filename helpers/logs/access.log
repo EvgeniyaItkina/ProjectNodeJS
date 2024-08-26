@@ -28,3 +28,118 @@ Method: GET
 URL: /end
 Response Time: 2.426 ms
 Status: 404
+Entry Time: 26/08/2024 10:55:50
+Method: POST
+URL: /users/login
+Response Time: 287.368 ms
+Status: 200
+Entry Time: 26/08/2024 10:56:27
+Method: POST
+URL: /users
+Response Time: 226.449 ms
+Status: 201
+Entry Time: 26/08/2024 10:57:46
+Method: POST
+URL: /users/login
+Response Time: 181.383 ms
+Status: 200
+Entry Time: 26/08/2024 10:58:14
+Method: GET
+URL: /users/66cb4d68635b1122d5a28394
+Response Time: 15.932 ms
+Status: 404
+Entry Time: 26/08/2024 10:59:00
+Method: GET
+URL: /users/66cc352b923b6590f36d5013
+Response Time: 12.781 ms
+Status: 200
+Entry Time: 26/08/2024 10:59:40
+Method: PUT
+URL: /users/66cc352b923b6590f36d5013
+Response Time: 27.055 ms
+Status: 200
+Entry Time: 26/08/2024 11:00:27
+Method: PATCH
+URL: /users/66cc352b923b6590f36d5013/business-status
+Response Time: 43.215 ms
+Status: 200
+Entry Time: 26/08/2024 11:00:47
+Method: GET
+URL: /cards
+Response Time: 9.292 ms
+Status: 200
+Entry Time: 26/08/2024 11:01:30
+Method: PUT
+URL: /cards/66cb4934635b1122d5a28380
+Response Time: 9.941 ms
+Status: 404
+Entry Time: 26/08/2024 11:01:48
+Method: POST
+URL: /cards
+Response Time: 6.220 ms
+Status: 401
+Entry Time: 26/08/2024 11:02:19
+Method: GET
+URL: /logout
+Response Time: 15.589 ms
+Status: 200
+Entry Time: 26/08/2024 11:02:35
+Method: POST
+URL: /users/login
+Response Time: 132.809 ms
+Status: 200
+Entry Time: 26/08/2024 11:03:32
+Method: POST
+URL: /cards
+Response Time: 6.032 ms
+Status: 401
+Entry Time: 26/08/2024 11:03:49
+Method: POST
+URL: /users/login
+Response Time: 192.847 ms
+Status: 200
+Entry Time: 26/08/2024 11:04:23
+Method: POST
+URL: /cards
+Response Time: 18.445 ms
+Status: 201
+Entry Time: 26/08/2024 11:04:49
+Method: GET
+URL: /cards/my-cards
+Response Time: 10.238 ms
+Status: 200
+Entry Time: 26/08/2024 11:05:10
+Method: PUT
+URL: /cards/66cb4934635b1122d5a28380
+Response Time: 7.593 ms
+Status: 404
+Entry Time: 26/08/2024 11:05:47
+Method: PUT
+URL: /cards/66cc3707923b6590f36d5033
+Response Time: 32.901 ms
+Status: 200
+Entry Time: 26/08/2024 11:06:05
+Method: GET
+URL: /cards/66cc3707923b6590f36d5033
+Response Time: 4.460 ms
+Status: 200
+Entry Time: 26/08/2024 11:06:39
+Method: PATCH
+URL: /cards/66cb4934635b1122d5a28380
+Response Time: 10.051 ms
+Status: 404
+Entry Time: 26/08/2024 11:06:59
+Method: PATCH
+URL: /cards/66cc3707923b6590f36d5033
+Response Time: 22.831 ms
+Status: 200
+Entry Time: 26/08/2024 11:07:47
+Method: DELETE
+URL: /cards/66cc3707923b6590f36d5033
+Response Time: 9.986 ms
+Status: 200
+Entry Time: 26/08/2024 11:10:57
+Method: DELETE
+URL: /users/66cc352b923b6590f36d5013
+Response Time: 9.448 ms
+Status: 200

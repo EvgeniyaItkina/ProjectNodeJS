@@ -72,9 +72,6 @@ app.post('/users/login', async (req, res) => {
 
 app.get('/logout', guard, async (req, res) => {
   try {
-    console.log("Logging out user with ID:", req.user ? req.user._id : 'undefined');
-
-    //почему то в res.user соделжится только ID и не надо его извлекать отдельно 
     const sessionDeleted = await Session.findOneAndDelete({ userID: req.user._id });
 
     if (!sessionDeleted) {

@@ -1,0 +1,30 @@
+Entry Time: 26/08/2024 10:58:14
+Method: GET
+URL: /users/66cb4d68635b1122d5a28394
+Response Time: 15.932 ms
+Status: 404
+Entry Time: 26/08/2024 11:01:30
+Method: PUT
+URL: /cards/66cb4934635b1122d5a28380
+Response Time: 9.941 ms
+Status: 404
+Entry Time: 26/08/2024 11:01:48
+Method: POST
+URL: /cards
+Response Time: 6.220 ms
+Status: 401
+Entry Time: 26/08/2024 11:03:32
+Method: POST
+URL: /cards
+Response Time: 6.032 ms
+Status: 401
+Entry Time: 26/08/2024 11:05:10
+Method: PUT
+URL: /cards/66cb4934635b1122d5a28380
+Response Time: 7.593 ms
+Status: 404
+Entry Time: 26/08/2024 11:06:39
+Method: PATCH
+URL: /cards/66cb4934635b1122d5a28380
+Response Time: 10.051 ms
+Status: 404
