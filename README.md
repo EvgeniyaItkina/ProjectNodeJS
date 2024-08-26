@@ -1,6 +1,6 @@
 # Introduction
 
-This project is a Node.js-based API designed for managing users, cards, and sessions. It includes user authentication, business management, and error handling with logging features.
+This project is a Node.js-based API designed for managing users, cards, and sessions. Built with Express.js and MongoDB, it includes features such as user authentication, business management, and error handling with logging capabilities.
 
 ### Features
 User Management: Register, login, update, and delete users with role-based access control.
@@ -25,7 +25,7 @@ Listening on: http://localhost:2024
 - **POST /users**: all users
 - **POST /users/login**: all users
 - **GET /user**: only for admin access
-- **GET /user/:id**: only for registered user  or admin
+- **GET /user/:id**: only for registered user or admin
 - **GET /logout**: only for registered user or admin
 - **PUT /user/:id**: only for registered user
 - **PATCH /user/:id**: only for registered user
